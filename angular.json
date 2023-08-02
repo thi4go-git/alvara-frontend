@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "alvara-app-v2": {
+    "alvara-frontend": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/alvara-app-v2",
+            "outputPath": "dist/alvara-frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "alvara-app-v2:build:production"
+              "browserTarget": "alvara-frontend:build:production"
             },
             "development": {
-              "browserTarget": "alvara-app-v2:build:development"
+              "browserTarget": "alvara-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "alvara-app-v2:build"
+            "browserTarget": "alvara-frontend:build"
           }
         },
         "test": {
