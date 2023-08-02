@@ -1,0 +1,42 @@
+<mat-tab-group>
+
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon>supervisor_account</mat-icon>
+            Usuários
+        </ng-template>
+        <app-usuario-list></app-usuario-list>
+    </mat-tab>
+
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon>settings</mat-icon>
+            Preferências PDF
+        </ng-template>
+
+        <mat-card>
+
+            <div *ngIf="mostraProgresso">
+                <h3> {{ descProgresso }} </h3>
+                <mat-progress-bar mode="determinate" value="{{ percentProgress }}" class="progressBar">
+                </mat-progress-bar>
+            </div>
+
+            <p>
+                <mat-toolbar>
+                    <span>
+                        <mat-icon>settings</mat-icon>Processar Arquivos PDF / Upload
+                    </span>
+                </mat-toolbar>
+            </p>
+            <form>
+                <input type="file" (change)="onFileSelected($event)" multiple data-allowed-file-extensions='["pdf"]'>
+                <br />
+                <br />
+                <br />
+                <button type="button" class="btn btn-primary" (click)="onUpload()" [disabled]="listaVazia">Upload
+                </button>
+            </form>
+        </mat-card>
+    </mat-tab>
+</mat-tab-group>

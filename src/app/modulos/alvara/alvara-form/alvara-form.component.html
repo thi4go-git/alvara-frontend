@@ -1,0 +1,118 @@
+<h1 class="mt-4">Editar Alvará</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">Edição</li>
+</ol>
+<div class="container">
+    <form #arquivoForm="ngForm" (ngSubmit)="onSubmit()">
+
+
+        <div id="row">
+            <div id="col-md-12">
+                <div class="alert alert-danger" role="alert" *ngFor="let erro of listaErros">
+                    {{ erro }}
+                </div>
+            </div>
+        </div>
+
+
+        <div id="row">
+
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-icon matSuffix>fingerprint</mat-icon>
+                <mat-label> <b>ID:</b> </mat-label>
+                <input matInput placeholder="Informe o ID:" name="id" [(ngModel)]="alvara.id" disabled="true" />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label> <b>Tipo Documento:</b> </mat-label>
+                <select matNativeControl matInput [(ngModel)]="alvara.tipo_doc" [ngModelOptions]="{standalone: true}">
+                    <option *ngFor="let tipo of tipo_doc" [value]="tipo" [selected]="tipo">
+                        {{ tipo }}
+                    </option>
+                </select>
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-icon matSuffix>picture_as_pdf</mat-icon>
+                <mat-label> <b>Nome Arquivo:</b> </mat-label>
+                <input matInput placeholder="Informe o Nome Arquivo:" name="nome_arquivo"
+                    [(ngModel)]="alvara.nome_arquivo" />
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-icon matSuffix>confirmation_number</mat-icon>
+                <mat-label> <b>Nº Alvará:</b> </mat-label>
+                <input matInput placeholder="Informe o Nº Alvará:" name="numero_alvara"
+                    [(ngModel)]="alvara.numero_alvara" />
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-icon matSuffix>text_format</mat-icon>
+                <mat-label> <b>Nome Empresa:</b> </mat-label>
+                <input matInput placeholder="Informe a Empresa" name="nome_empresa" [(ngModel)]="alvara.nome_empresa" />
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-icon matSuffix>assignment_ind</mat-icon>
+                <mat-label> <b>CNPJ Empresa:</b> </mat-label>
+                <input matInput placeholder="Informe a CNPJ" name="cnpj_empresa" [(ngModel)]="alvara.cnpj_empresa" />
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-label> <b>Data Emissão:</b> </mat-label>
+                <input matInput placeholder="Informe a Data Emissão" type="date" name="data_emissao"
+                    [(ngModel)]="alvara.data_emissao" />
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-label> <b>Data Vencimento:</b> </mat-label>
+                <input matInput placeholder="Informe a Data Vencimento" type="date" name="data_vencimento"
+                    [(ngModel)]="alvara.data_vencimento" />
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-icon matSuffix>explicit</mat-icon>
+                <mat-label> <b>Expira:</b> </mat-label>
+                <input matInput placeholder="Informe o Expira:" name="expira" [(ngModel)]="alvara.expira"
+                    disabled="true" />
+            </mat-form-field>
+
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-icon matSuffix>text_format</mat-icon>
+                <mat-label> <b>Observação:</b> </mat-label>
+                <input matInput placeholder="Informe a Observação" name="observacao" [(ngModel)]="alvara.observacao" />
+            </mat-form-field>
+
+            <div>
+                <hr />
+                <div>
+                    <mat-label>
+                        <b>
+                            Atualizar informações com novo Arquivo PDF
+                        </b>
+                    </mat-label>
+                </div>
+                <form>
+                    <input type="file" (change)="onFileSelected($event)" data-allowed-file-extensions='["pdf"]'>
+                    <button type="button" class="btn btn-primary" (click)="dialogUpdateUpload()"
+                        [disabled]="listaVazia">
+                        Upload
+                    </button>
+                </form>
+                <hr />
+            </div>
+
+        </div>
+
+        <br />
+
+        <button type="submit" class="btn btn-primary" *ngIf="alvara.id">
+            <i class="fa fa-sync-alt"></i>
+            <mat-icon>autorenew</mat-icon>Atualizar
+        </button>
+        <button type="button" class="btn btn-danger ml-2" (click)="voltarLista()">
+            <i class="fa fa-solid fa-arrow-alt-circle-left"></i>
+            <mat-icon>keyboard_return</mat-icon>Voltar
+        </button>
+    </form>
+</div>

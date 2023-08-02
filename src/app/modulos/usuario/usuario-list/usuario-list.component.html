@@ -1,0 +1,77 @@
+<h1 class="mt-4">Usuários</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">Consulta</li>
+</ol>
+<div class="container">
+    <div id="row">
+        <div id="col-md-2">
+            <button class="btn btn-warning" (click)="novoUsuario()">
+                <i class="fa fa-plus"></i>Novo
+            </button>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th>foto</th>
+                        <th>id</th>
+                        <th>username</th>
+                        <th>password</th>
+                        <th>role</th>
+                        <th>nome</th>
+                        <th>cpf</th>
+                        <th>email</th>
+                        <th>celular</th>
+                        <th>ativo</th>
+                        <th>admin</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let usuario of listaUsuarios">
+                        <td>
+                            <div *ngIf="usuario.foto">
+                                <img width="50" height="50" src="data:image/jpeg;base64,{{ usuario.foto }}" />
+                            </div>
+                            <div *ngIf=" !usuario.foto">
+                                <input type="file" name="foto" (change)="uploadFoto($event,usuario)" />
+                            </div>
+                        </td>
+                        <td>{{ usuario.id }}</td>
+                        <td>{{ usuario.username }}</td>
+                        <td>{{ usuario.password }}</td>
+                        <td>{{ usuario.role }}</td>
+                        <td>{{ usuario.nome }}</td>
+                        <td>{{ usuario.cpf }}</td>
+                        <td>{{ usuario.email }}</td>
+                        <td>{{ usuario.celular }}</td>
+                        <td>
+                            <mat-icon (click)="ativarDesativar(usuario)" class="cursorMao">
+                                {{ usuario.ativo ? 'thumb_up' : 'thumb_down' }}
+                            </mat-icon>
+                        </td>
+                        <td>
+                            <mat-icon (click)="ativarDesativarAdm(usuario)" class="cursorMao">
+                                {{ usuario.admin ? 'thumb_up' : 'thumb_down' }}
+                            </mat-icon>
+                        </td>
+                        <td>
+                            <mat-icon class="cursorMao">edit</mat-icon>
+                        </td>
+                        <td>
+                            <mat-icon (click)="dialogExlusaoUsuario(usuario)" class="cursorMao" >
+                                delete
+                            </mat-icon>
+                        </td>
+                        <td>
+                            <mat-icon (click)="infoUsuario(usuario)" class="cursorMao">visibility</mat-icon>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
