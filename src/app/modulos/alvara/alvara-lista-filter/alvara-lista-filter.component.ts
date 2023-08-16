@@ -11,7 +11,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AutenticacaoService } from 'src/app/servicos/autenticacao.service';
 
 
-
 @Component({
   selector: 'app-alvara-lista-filter',
   templateUrl: './alvara-lista-filter.component.html',
@@ -92,6 +91,8 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
             });
           }
           this.mostraProgresso = false;
+          console.log(this.listaAlvaras);
+          
         },
         error: (errorResponse) => {
           console.log(errorResponse);

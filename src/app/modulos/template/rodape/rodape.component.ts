@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-rodape',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./rodape.component.css']
 })
 export class RodapeComponent {
-
+  swaggerApi: string = environment.apiUrl + '/swagger-ui.html';
 }

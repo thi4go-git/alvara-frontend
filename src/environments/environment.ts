@@ -1,7 +1,8 @@
 export const environment = {
     production: false,
-    apiUrl: 'http://cloudtecnologia.dynns.com:8090',  
+    apiUrl: 'http://cloudtecnologia.dynns.com:8090',
+    //apiUrl: 'http://localhost:8080',
     cli_id: 'my-angular-app',
     cli_secret: '@321',
-    versao: 'v02.08.2023'
+    versao: 'v15.08.2023'
 };

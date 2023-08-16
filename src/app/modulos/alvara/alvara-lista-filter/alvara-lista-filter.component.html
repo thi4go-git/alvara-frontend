@@ -82,7 +82,7 @@
 
 
 <div class="mat-elevation-z8 col-md-12 table-responsive">
-    <mat-paginator [length]="totalElementos" [pageSize]="tamanho" [pageSizeOptions]="[10,50,100,500]"
+    <mat-paginator [length]="totalElementos" [pageSize]="tamanho" [pageSizeOptions]="[5,10,50,100,500]"
         aria-label="Select page" (page)="paginar($event)">
     </mat-paginator>
     <table mat-table [dataSource]="dataSource"
