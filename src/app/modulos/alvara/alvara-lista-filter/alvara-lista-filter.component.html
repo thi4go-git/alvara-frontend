@@ -32,7 +32,8 @@
                         <mat-icon matSuffix>fingerprint</mat-icon>
                         <mat-label> <b>CNPJ</b> </mat-label>
                         <input matInput placeholder="CNPJ" name="cnpj_empresa"
-                            [(ngModel)]="alvaraFilter.cnpj_empresa" />
+                            [(ngModel)]="alvaraFilter.cnpj_empresa" 
+                            mask="00.000.000/0000-00" [showMaskTyped]="true" />
                     </mat-form-field>
                     <mat-form-field appearance="fill" class="espaco-filter">
                         <mat-icon matSuffix>fingerprint</mat-icon>

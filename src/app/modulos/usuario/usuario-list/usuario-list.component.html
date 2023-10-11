@@ -45,7 +45,7 @@
                         <td>{{ usuario.password }}</td>
                         <td>{{ usuario.role }}</td>
                         <td>{{ usuario.nome }}</td>
-                        <td>{{ usuario.cpf }}</td>
+                        <td>{{ usuario.cpf | mask: 'CPF_CNPJ' }}</td>
                         <td>{{ usuario.email }}</td>
                         <td>{{ usuario.celular }}</td>
                         <td>
@@ -62,7 +62,7 @@
                             <mat-icon class="cursorMao">edit</mat-icon>
                         </td>
                         <td>
-                            <mat-icon (click)="dialogExlusaoUsuario(usuario)" class="cursorMao" >
+                            <mat-icon (click)="dialogExlusaoUsuario(usuario)" class="cursorMao">
                                 delete
                             </mat-icon>
                         </td>

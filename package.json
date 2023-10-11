@@ -1,6 +1,6 @@
 {
   "name": "alvara-frontend",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -26,6 +26,7 @@
     "chart.js": "^4.2.1",
     "dotenv": "^16.0.3",
     "jquery": "^3.6.3",
+    "ngx-mask": "^16.3.9",
     "popper.js": "^1.16.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

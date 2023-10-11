@@ -40,7 +40,8 @@
     <mat-form-field class="full-width">
         <mat-icon matSuffix>fingerprint</mat-icon>
         <mat-label>cpf:</mat-label>
-        <input formControlName="cpf" matInput placeholder="Digite o cpf:" />
+        <input formControlName="cpf" matInput placeholder="Digite o cpf:" 
+        mask="000.000.000-00" [showMaskTyped]="true" />
     </mat-form-field>
 
     <button type="submit" class="btn btn-success" [disabled]="!formulario.valid">

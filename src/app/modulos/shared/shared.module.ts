@@ -15,6 +15,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 
 @NgModule({
@@ -37,7 +38,9 @@ import { MatButtonModule } from '@angular/material/button';
     ReactiveFormsModule,
     MatSnackBarModule,
     MatTabsModule,
-    MatButtonModule
+    MatButtonModule,
+    NgxMaskDirective,
+    NgxMaskPipe
   ], exports: [
     CommonModule,
     FormsModule,
@@ -55,8 +58,11 @@ import { MatButtonModule } from '@angular/material/button';
     ReactiveFormsModule,
     MatSnackBarModule,
     MatTabsModule,
-    MatButtonModule
+    MatButtonModule,
+    NgxMaskDirective,
+    NgxMaskPipe
   ], providers: [
+    provideNgxMask(),
   ]
 })
 export class SharedModule { }

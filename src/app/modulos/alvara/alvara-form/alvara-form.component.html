@@ -55,7 +55,8 @@
             <mat-form-field class="full-width" appearance="fill">
                 <mat-icon matSuffix>assignment_ind</mat-icon>
                 <mat-label> <b>CNPJ Empresa:</b> </mat-label>
-                <input matInput placeholder="Informe a CNPJ" name="cnpj_empresa" [(ngModel)]="alvara.cnpj_empresa" />
+                <input matInput placeholder="Informe a CNPJ" name="cnpj_empresa" [(ngModel)]="alvara.cnpj_empresa"
+                    mask="00.000.000/0000-00" [showMaskTyped]="true" />
             </mat-form-field>
 
             <mat-form-field class="full-width" appearance="fill">
