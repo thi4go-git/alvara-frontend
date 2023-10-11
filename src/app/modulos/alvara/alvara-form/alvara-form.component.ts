@@ -4,6 +4,7 @@ import { AlvaraService } from 'src/app/servicos/alvara.service';
 import { Alvara } from '../alvara';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AvisosDialogService } from 'src/app/servicos/avisos-dialog.service';
+import { GeralException } from 'src/app/exception/geralException';
 
 
 
@@ -48,7 +49,10 @@ export class AlvaraFormComponent implements OnInit {
               this.alvara = resposta;
             },
             error: (errorResponse) => {
-              console.log(errorResponse);
+              this.snackBar.open("Erro ", "Erro!", {
+                duration: 2000
+              });
+              throw new GeralException('Erro ao listar Documento pelo ID ' + errorResponse);
             }
           });
       }
@@ -63,7 +67,10 @@ export class AlvaraFormComponent implements OnInit {
           this.tipo_doc = resposta;
         },
         error: (errorResponse) => {
-          console.log(errorResponse);
+          this.snackBar.open("Erro ao definir ComboBox ", "ERRO!", {
+            duration: 3000
+          });
+          throw new GeralException(errorResponse);
         }
       });
   }
@@ -140,17 +147,17 @@ export class AlvaraFormComponent implements OnInit {
     this.service
       .uploadUpdatePdf(formData, this.id)
       .subscribe({
-        next: (response) => {
+        next: (_response) => {
           this.snackBar.open("Sucesso ao Atualizar Documento", "SUCESSO!", {
             duration: 3000
           });
           this.listarPorId();
         },
         error: (errorResponse) => {
-          console.log(errorResponse);
-          this.snackBar.open("Erro ao Processar", "ERRO!", {
+          this.snackBar.open("Erro ao realizar UPLOAD", "ERRO!", {
             duration: 3000
           });
+          throw new GeralException(errorResponse);
         }
       });
   }

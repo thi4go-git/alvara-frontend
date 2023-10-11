@@ -9,6 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AvisosDialogService } from 'src/app/servicos/avisos-dialog.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AutenticacaoService } from 'src/app/servicos/autenticacao.service';
+import { GeralException } from 'src/app/exception/geralException';
 
 
 @Component({
@@ -91,14 +92,12 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
             });
           }
           this.mostraProgresso = false;
-          console.log(this.listaAlvaras);
-          
         },
         error: (errorResponse) => {
-          console.log(errorResponse);
-          this.snackBar.open("Erro ao Obter Lista!", "ERRO!", {
+          this.snackBar.open("Erro ao Obter Lista de arquivos!", "ERRO!", {
             duration: 2000
           });
+          throw new GeralException(errorResponse);
         }
       });
   }
@@ -149,10 +148,10 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
           this.mostraProgresso = false;
         },
         error: (responseError) => {
-          console.log(responseError);
           this.snackBar.open("Erro ao Obter Lista!", "ERRO!", {
             duration: 2000
           });
+          throw new GeralException(responseError);
         }
       });
   }
@@ -178,10 +177,10 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
           this.mostraProgresso = false;
         },
         error: (errorResponse) => {
-          console.log(errorResponse);
           this.snackBar.open("Erro ao Obter Lista!", "ERRO!", {
             duration: 2000
           });
+          throw new GeralException(errorResponse);
         }
       });
   }
@@ -206,10 +205,10 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
           this.mostraProgresso = false;
         },
         error: (errorResponse) => {
-          console.log(errorResponse);
           this.snackBar.open("Erro ao Obter Lista!", "ERRO!", {
             duration: 2000
           });
+          throw new GeralException(errorResponse);
         }
       });
   }
@@ -235,10 +234,10 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
           this.mostraProgresso = false;
         },
         error: (errorResponse) => {
-          console.log(errorResponse);
           this.snackBar.open("Erro ao Obter Lista!", "ERRO!", {
             duration: 2000
           });
+          throw new GeralException(errorResponse);
         }
       });
 
@@ -287,10 +286,10 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
           this.mostraProgresso = false;
         },
         error: (errorResponse) => {
-          console.log(errorResponse);
           this.snackBar.open("Erro ao BAIXAR Arquivo!", "ERRO!", {
             duration: 2000
           });
+          throw new GeralException(errorResponse);
         }
       });
 
@@ -337,17 +336,17 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
   deletar(id: number) {
     this.service.deletarArquivoPorId(id)
       .subscribe({
-        next: (resposta) => {
+        next: (_resposta) => {
           this.snackBar.open("Sucesso ao excluir Documento!", "SUCESSO!", {
             duration: 3000
           });
           this.listarArquivos();
         },
         error: (errorResponse) => {
-          console.log(errorResponse);
-          this.snackBar.open("Erro ao excluir Documento!", "ERRO!", {
-            duration: 3000
+          this.snackBar.open("Erro ao DELETAR Arquivo!", "ERRO!", {
+            duration: 2000
           });
+          throw new GeralException(errorResponse);
         }
       });
   }
@@ -391,10 +390,10 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
           this.mostraProgresso = false;
         },
         error: (errorResponse) => {
-          console.log(errorResponse);
-          this.snackBar.open("Erro ao Obter Lista!", "ERRO!", {
+          this.snackBar.open("Erro ao DELETAR Arquivo!", "ERRO!", {
             duration: 2000
           });
+          throw new GeralException(errorResponse);
         }
       });
 

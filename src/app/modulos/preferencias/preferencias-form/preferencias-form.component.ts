@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AlvaraService } from 'src/app/servicos/alvara.service';
+import { GeralException } from 'src/app/exception/geralException';
 
 @Component({
   selector: 'app-preferencias-form',
@@ -53,7 +54,7 @@ export class PreferenciasFormComponent {
     this.service
       .uploadPdf(formData)
       .subscribe({
-        next: (response) => {
+        next: (_response) => {
           this.contSucessUp = this.contSucessUp + 1;
           this.percentProgress = (this.contSucessUp / this.listaArquivos.length) * 100;
           this.descProgresso = "Aguarde, processando ( " + this.contSucessUp + " de " + this.listaArquivos.length + " ) " +
@@ -70,11 +71,10 @@ export class PreferenciasFormComponent {
           }
         },
         error: (errorResponse) => {
-          console.log("ERRO");
-          console.log(errorResponse);
           this.snackBar.open("Erro ao Fazer upload!", "ERRO!", {
             duration: 3000
           });
+          throw new GeralException(errorResponse);
         }
       });
   }

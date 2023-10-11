@@ -8,6 +8,7 @@ import { Usuario } from '../usuario';
 import { PageEvent } from '@angular/material/paginator';
 import { UsuarioInfoComponent } from '../usuario-info/usuario-info.component';
 import { AvisosDialogService } from 'src/app/servicos/avisos-dialog.service';
+import { GeralException } from 'src/app/exception/geralException';
 
 
 @Component({
@@ -71,10 +72,10 @@ export class UsuarioListComponent implements OnInit {
           }
         },
         error: (responseError) => {
-          console.log(responseError);
           this.snackBar.open("Erro ao Obter Lista Usuários!", "ERRO!", {
             duration: 2000
           });
+          throw new GeralException(responseError);
         }
       });
 
@@ -84,18 +85,17 @@ export class UsuarioListComponent implements OnInit {
   ativarDesativar(usuario: Usuario) {
     this.service.ativarUsuario(usuario.id)
       .subscribe({
-        next: (resposta) => {
-          console.log(resposta);
+        next: (_resposta) => {
           this.snackBar.open("SUCESSO!", "SUCESSO!", {
             duration: 2000
           });
           location.reload();
         },
         error: (responseError) => {
-          console.log(responseError);
           this.snackBar.open("erro ativarDesativar!", "Erro!", {
             duration: 2000
           });
+          throw new GeralException(responseError);
         }
       });
   }
@@ -105,18 +105,17 @@ export class UsuarioListComponent implements OnInit {
   ativarDesativarAdm(usuario: Usuario) {
     this.service.ativarUsuarioAdm(usuario.id)
       .subscribe({
-        next: (resposta) => {
-          console.log(resposta);
+        next: (_resposta) => {
           this.snackBar.open("SUCESSO!", "SUCESSO!", {
             duration: 2000
           });
           location.reload()
         },
         error: (responseError) => {
-          console.log(responseError);
           this.snackBar.open("erro ativarDesativarAdm!", "Erro!", {
             duration: 2000
           });
+          throw new GeralException(responseError);
         }
       });
 
@@ -129,15 +128,17 @@ export class UsuarioListComponent implements OnInit {
       const foto = files[0];
       const formData: FormData = new FormData();
       formData.append("foto", foto);
-      //
+
       this.service.uploadFoto(usuario.id, formData)
         .subscribe({
-          next: (resposta) => {
-            console.log("Sucesso UPLOAD " + resposta);
+          next: (_resposta) => {
             this.listarUsuarios();
           },
           error: (responseError) => {
-            console.log("ERRO UPLOAD " + responseError);
+            this.snackBar.open("erro ao enviar FOTO", "Erro!", {
+              duration: 2000
+            });
+            throw new GeralException(responseError);
           }
         });
     }
@@ -184,10 +185,10 @@ export class UsuarioListComponent implements OnInit {
           this.listarUsuarios();
         },
         error: (responseError) => {
-          console.log(responseError);
           this.snackBar.open("ERRO ao Deletar Usuário!", "ERRO!", {
             duration: 3000
           });
+          throw new GeralException(responseError);
         }
       });
   }

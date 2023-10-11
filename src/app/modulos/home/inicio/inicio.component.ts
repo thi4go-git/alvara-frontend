@@ -3,6 +3,7 @@ import { AlvaraService } from 'src/app/servicos/alvara.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import Chart from 'chart.js/auto'
+import { GeralException } from 'src/app/exception/geralException';
 
 @Component({
   selector: 'app-inicio',
@@ -44,7 +45,7 @@ export class InicioComponent {
           this.snackBar.open("Erro ao Obter totalDocumentos!", "ERRO!", {
             duration: 2000
           });
-          console.log(errorResponse);
+          throw new GeralException(errorResponse);
         }
       });
   }
@@ -61,7 +62,7 @@ export class InicioComponent {
           this.snackBar.open("Erro ao Obter totalVencidos!", "ERRO!", {
             duration: 2000
           });
-          console.log(errorResponse);
+          throw new GeralException(errorResponse);
         }
       });
 
@@ -79,7 +80,7 @@ export class InicioComponent {
           this.snackBar.open("Erro ao Obter venceEm60dias!", "ERRO!", {
             duration: 2000
           });
-          console.log(errorResponse);
+          throw new GeralException(errorResponse);
         }
       });
 
@@ -97,7 +98,7 @@ export class InicioComponent {
           this.snackBar.open("Erro ao Obter venceApos60dias!", "ERRO!", {
             duration: 2000
           });
-          console.log(errorResponse);
+          throw new GeralException(errorResponse);
         }
       });
 
@@ -114,7 +115,7 @@ export class InicioComponent {
           this.snackBar.open("Erro ao Obter totaDocumentosSemInfo!", "ERRO!", {
             duration: 2000
           });
-          console.log(errorResponse);
+          throw new GeralException(errorResponse);
         }
       });
   }
