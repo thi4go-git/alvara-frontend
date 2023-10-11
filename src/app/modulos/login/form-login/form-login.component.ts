@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AutenticacaoService } from 'src/app/servicos/autenticacao.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-form-login',
@@ -15,6 +16,7 @@ export class FormLoginComponent {
   erros: string[];
   loginError: boolean;
   hide = true;
+  versao: string = environment.versao;
 
   constructor(
     private router: Router,

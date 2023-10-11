@@ -8,7 +8,7 @@ services:
         restart: always
         environment:
             - PRODUCTION=false
-            - API_URL=http://cloudtecnologia.dynns.com:8090        
-            - VERSAO='v_15.08.2023'
+            - API_URL=http://cloudtecnologia.dynns.com:8090
+            - VERSAO='v_11.10.2023'
             - CLI_ID=my-angular-app
             - CLI_SECRET=@321
