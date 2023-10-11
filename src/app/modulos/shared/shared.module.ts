@@ -17,9 +17,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 
 
-
 @NgModule({
-  declarations: [    
+  declarations: [
   ],
   imports: [
     CommonModule,
@@ -57,6 +56,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatSnackBarModule,
     MatTabsModule,
     MatButtonModule
+  ], providers: [
   ]
 })
 export class SharedModule { }
