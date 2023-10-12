@@ -75,6 +75,7 @@ export class AlvaraService {
     return this.http.put<any>(this.apiAlvara + "/atualizar", alvara);
   }
 
+  
   deletarArquivoPorId(id: number): Observable<any> {
     return this.http.delete<any>(this.apiAlvara + "/delete/" + id,);
   }
