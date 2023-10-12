@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { UsuarioDTO } from '../usuarioDTO';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UsuarioService } from 'src/app/servicos/usuario.service';
 import { Router } from '@angular/router';
+import { UsuarioDTO } from 'src/app/model/usuarioDTO';
 
 
 

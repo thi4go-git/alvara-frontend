@@ -4,11 +4,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AutenticacaoService } from 'src/app/servicos/autenticacao.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { Usuario } from '../usuario';
 import { PageEvent } from '@angular/material/paginator';
 import { UsuarioInfoComponent } from '../usuario-info/usuario-info.component';
 import { AvisosDialogService } from 'src/app/servicos/avisos-dialog.service';
 import { GeralException } from 'src/app/exception/geralException';
+import { Usuario } from 'src/app/model/usuario';
 
 
 @Component({

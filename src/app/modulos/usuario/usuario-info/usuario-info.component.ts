@@ -1,6 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Usuario } from '../usuario';
+import { Usuario } from 'src/app/model/usuario';
+
+
 
 @Component({
   selector: 'app-usuario-info',

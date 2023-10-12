@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { AlvaraService } from 'src/app/servicos/alvara.service';
-import { Alvara } from '../alvara';
+import { Alvara } from '../../../model/alvara';
 import { MatPaginator } from '@angular/material/paginator';
 import { PageEvent } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -10,6 +10,7 @@ import { AvisosDialogService } from 'src/app/servicos/avisos-dialog.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AutenticacaoService } from 'src/app/servicos/autenticacao.service';
 import { GeralException } from 'src/app/exception/geralException';
+import { ArquivoFilterDTO } from 'src/app/model/arquivoFilterDTO';
 
 
 @Component({
@@ -46,23 +47,25 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
   pageSizeOptions: number[] = [this.tamanho];
   qtdeRegistros: number = 0;
 
-  alvaraFilter: Alvara = new Alvara();
+  alvaraFilter: ArquivoFilterDTO = new ArquivoFilterDTO();
   tipoDocumento: any[] = [];
 
+  tipo_doc: any[] = [];
 
-  //
   selection = new SelectionModel<Alvara>(true, []);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngOnInit(): void {
+    this.definirComboBoxTipo();
     this.authorities = this.authService.getAuthoritiesToken();
     this.administrador = this.authService.isAdmin(this.authorities);
     this.activatedRoute.params.subscribe(parametro => {
       if (parametro && parametro['tipoConsulta'] != undefined) {
         this.listarPersonalizado();
       } else {
-        this.listarArquivos();
+        this.alvaraFilter = new ArquivoFilterDTO();
+        this.listagemComFiltros();
       }
     });
   }
@@ -76,8 +79,32 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  listarArquivos() {
-    this.service.listarTodos(this.pagina, this.tamanho)
+
+  private definirComboBoxTipo() {
+    this.service
+      .obterListaTipoDoc()
+      .subscribe({
+        next: (resposta) => {
+          for (let a = 0; a <= resposta.length; a = a + 1) {
+            const tipo = resposta[a];
+            if (tipo != undefined) {
+              this.tipo_doc.push(tipo);
+            }
+          }
+          this.tipo_doc.push('TODOS');
+        },
+        error: (errorResponse) => {
+          this.snackBar.open("Erro ao definir ComboBox ", "ERRO!", {
+            duration: 3000
+          });
+          throw new GeralException(errorResponse);
+        }
+      });
+  }
+
+  listagemComFiltros() {
+    this.mostraProgresso = true;
+    this.service.listarTodosFilterMatcher(this.pagina, this.tamanho, this.alvaraFilter)
       .subscribe({
         next: (resposta) => {
           this.listaAlvaras = resposta.content;
@@ -94,7 +121,8 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
           this.mostraProgresso = false;
         },
         error: (errorResponse) => {
-          this.snackBar.open("Erro ao Obter Lista de arquivos!", "ERRO!", {
+          this.mostraProgresso = false;
+          this.snackBar.open("Erro ao Listar com Filtros!", "ERRO!", {
             duration: 2000
           });
           throw new GeralException(errorResponse);
@@ -102,12 +130,14 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
       });
   }
 
+
   listarPersonalizado() {
     this.activatedRoute.params.subscribe(parametro => {
       let consultaParam = parametro['tipoConsulta'];
       if (parametro && consultaParam != undefined) {
         if (consultaParam == 'totalVencidos') {
-          this.listarVencidos();
+          //this.listarVencidos();
+          this.listarVencidosPAge();
         } else {
           if (consultaParam == 'venceEm60dias') {
             this.listarVencerEmAte60Dias();
@@ -129,6 +159,35 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
 
 
   listarVencidos() {
+    this.mostraProgresso = true;
+    this.service.listarVencidos(this.pagina, this.tamanho)
+      .subscribe({
+        next: (resposta) => {
+          this.listaAlvaras = resposta.content;
+          this.listaAlvaras.sort((a, b) => (a.expira < b.expira) ? -1 : 1);
+          this.ELEMENT_DATA = this.listaAlvaras;
+          this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+          this.totalElementos = resposta.totalElements;
+          this.pagina = resposta.number;
+          this.qtdeRegistros = this.listaAlvaras.length;
+          if (this.listaAlvaras.length == 0) {
+            this.snackBar.open("Lista Vazia!", "Info!", {
+              duration: 2000
+            });
+          }
+          this.mostraProgresso = false;
+        },
+        error: (responseError) => {
+          this.snackBar.open("Erro ao Obter Lista!", "ERRO!", {
+            duration: 2000
+          });
+          throw new GeralException(responseError);
+        }
+      });
+  }
+
+
+  listarVencidosPAge() {
     this.mostraProgresso = true;
     this.service.listarVencidos(this.pagina, this.tamanho)
       .subscribe({
@@ -246,7 +305,16 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
   paginar(event: PageEvent) {
     this.pagina = event.pageIndex;
     this.tamanho = event.pageSize
-    this.listarArquivos();
+
+    this.activatedRoute.params.subscribe(parametro => {
+      let consultaParam = parametro['tipoConsulta'];
+
+      if (consultaParam == undefined) {
+        this.listagemComFiltros();
+        console.log("Paginar listagemComFiltros");
+      }
+
+    });
   }
 
   isAllSelected() {
@@ -340,7 +408,7 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
           this.snackBar.open("Sucesso ao excluir Documento!", "SUCESSO!", {
             duration: 3000
           });
-          this.listarArquivos();
+          this.listagemComFiltros();
         },
         error: (errorResponse) => {
           this.snackBar.open("Erro ao DELETAR Arquivo!", "ERRO!", {
@@ -351,53 +419,7 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
       });
   }
 
-  listagemComFiltros() {
-    if (this.alvaraFilter.nome_empresa) {
-      this.alvaraFilter.nome_empresa = this.alvaraFilter.nome_empresa.replaceAll(" ", "");
-    }
-    if (this.alvaraFilter.cnpj_empresa) {
-      let cnpjReplace = this.alvaraFilter.cnpj_empresa;
-      cnpjReplace = cnpjReplace.replaceAll(".", "");
-      cnpjReplace = cnpjReplace.replaceAll("/", "");
-      cnpjReplace = cnpjReplace.replaceAll("-", "");
-      cnpjReplace = cnpjReplace.replaceAll(" ", "");
-      this.alvaraFilter.cnpj_empresa = cnpjReplace;
-    }
-    if (this.alvaraFilter.numero_alvara) {
-      this.alvaraFilter.numero_alvara = this.alvaraFilter.numero_alvara.replaceAll(" ", "");
-    }
-    if (this.alvaraFilter.nome_arquivo) {
-      this.alvaraFilter.nome_arquivo = this.alvaraFilter.nome_arquivo.replaceAll(" ", "");
-    }
-    if (this.alvaraFilter.observacao) {
-      this.alvaraFilter.observacao = this.alvaraFilter.observacao.replaceAll(" ", "");
-    }
-    this.mostraProgresso = true;
-    this.service.listarMatcher(this.pagina, this.tamanho, this.alvaraFilter)
-      .subscribe({
-        next: (resposta) => {
-          this.listaAlvaras = resposta.content;
-          this.ELEMENT_DATA = this.listaAlvaras;
-          this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
-          this.totalElementos = resposta.totalElements;
-          this.pagina = resposta.number;
-          this.qtdeRegistros = this.listaAlvaras.length;
-          if (this.listaAlvaras.length == 0) {
-            this.snackBar.open("Lista Vazia!", "Info!", {
-              duration: 2000
-            });
-          }
-          this.mostraProgresso = false;
-        },
-        error: (errorResponse) => {
-          this.snackBar.open("Erro ao DELETAR Arquivo!", "ERRO!", {
-            duration: 2000
-          });
-          throw new GeralException(errorResponse);
-        }
-      });
 
-  }
 
   limparFiltros() {
     this.router.navigate(['/alvara/lista']);

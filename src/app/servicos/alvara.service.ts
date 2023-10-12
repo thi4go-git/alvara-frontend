@@ -2,8 +2,10 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Alvara } from '../modulos/alvara/alvara';
-import { AlvaraPaginator } from '../modulos/alvara/alvaraPaginator';
+import { Alvara } from '../model/alvara';
+import { AlvaraPaginator } from '../model/alvaraPaginator';
+import { ArquivoFilterDTO } from '../model/arquivoFilterDTO';
+
 
 
 
@@ -26,15 +28,7 @@ export class AlvaraService {
     return this.http.get<any>(this.apiAlvara + "/download/" + id);
   }
 
-
-  listarTodos(page: number, size: number): Observable<AlvaraPaginator> {
-    const params = new HttpParams()
-      .set('page', page)
-      .set('size', size)
-    return this.http.get<AlvaraPaginator>(this.apiAlvara + "?" + params.toString());
-  }
-
-  listarMatcher(page: number, size: number, alvara: Alvara): Observable<AlvaraPaginator> {
+  listarTodosFilterMatcher(page: number, size: number, alvara: ArquivoFilterDTO): Observable<AlvaraPaginator> {
     const params = new HttpParams()
       .set('page', page)
       .set('size', size)
@@ -42,14 +36,6 @@ export class AlvaraService {
       alvara, { params });
   }
 
-
-  listarTodosPorNome(page: number, size: number, nome: string): Observable<AlvaraPaginator> {
-    const params = new HttpParams()
-      .set('page', page)
-      .set('size', size)
-      .set('nome', nome)
-    return this.http.get<AlvaraPaginator>(this.apiAlvara + "/listarpornome?" + params.toString());
-  }
 
   listarVencidos(page: number, size: number): Observable<AlvaraPaginator> {
     const params = new HttpParams()
@@ -93,8 +79,8 @@ export class AlvaraService {
     return this.http.delete<any>(this.apiAlvara + "/delete/" + id,);
   }
 
-  obterListaTipoDoc(): Observable<any> {
-    return this.http.get<Alvara>(this.apiAlvara + "/tipodocumento");
+  obterListaTipoDoc(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiAlvara + "/tipodocumento");
   }
 
   totalArquivos(): Observable<number> {

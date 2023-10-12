@@ -2,9 +2,10 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Usuario } from '../modulos/usuario/usuario';
-import { UsuarioDTO } from '../modulos/usuario/usuarioDTO';
-import { UsuarioPaginator } from '../modulos/usuario/usuarioPaginator';
+import { Usuario } from '../model/usuario';
+import { UsuarioDTO } from '../model/usuarioDTO';
+import { UsuarioPaginator } from '../model/usuarioPaginator';
+
 
 
 

@@ -24,37 +24,32 @@
                 <div class="espaco-filter">
                     <mat-form-field appearance="fill" class="espaco-filter">
                         <mat-icon matSuffix>fingerprint</mat-icon>
-                        <mat-label> <b>Empresa</b> </mat-label>
-                        <input matInput placeholder="Empresa:" name="nome_empresa"
+                        <mat-label> <b>Nome Empresa</b> </mat-label>
+                        <input matInput placeholder="Nome Empresa:" name="nome_empresa"
                             [(ngModel)]="alvaraFilter.nome_empresa" />
                     </mat-form-field>
                     <mat-form-field appearance="fill" class="espaco-filter">
                         <mat-icon matSuffix>fingerprint</mat-icon>
                         <mat-label> <b>CNPJ</b> </mat-label>
-                        <input matInput placeholder="CNPJ" name="cnpj_empresa"
-                            [(ngModel)]="alvaraFilter.cnpj_empresa" 
+                        <input matInput placeholder="CNPJ" name="cnpj_empresa" [(ngModel)]="alvaraFilter.cnpj_empresa"
                             mask="00.000.000/0000-00" [showMaskTyped]="true" />
                     </mat-form-field>
+                </div>
+                <div>
                     <mat-form-field appearance="fill" class="espaco-filter">
                         <mat-icon matSuffix>fingerprint</mat-icon>
                         <mat-label> <b>Nº Alvará</b> </mat-label>
                         <input matInput placeholder="Nº Alvará:" name="numero_alvara"
                             [(ngModel)]="alvaraFilter.numero_alvara" />
                     </mat-form-field>
-                </div>
-
-                <div>
                     <mat-form-field appearance="fill" class="espaco-filter">
-                        <mat-icon matSuffix>fingerprint</mat-icon>
-                        <mat-label> <b>Nome Arquivo</b> </mat-label>
-                        <input matInput placeholder="Nome Arquivo:" name="nome_arquivo"
-                            [(ngModel)]="alvaraFilter.nome_arquivo" />
-                    </mat-form-field>
-                    <mat-form-field appearance="fill" class="espaco-filter">
-                        <mat-icon matSuffix>fingerprint</mat-icon>
-                        <mat-label> <b>Observação</b> </mat-label>
-                        <input matInput placeholder="Observação:" name="observacao"
-                            [(ngModel)]="alvaraFilter.observacao" />
+                        <mat-label> <b>Tipo Documento:</b> </mat-label>
+                        <select matNativeControl matInput [(ngModel)]="alvaraFilter.tipo_doc"
+                            [ngModelOptions]="{standalone: true}">
+                            <option *ngFor="let tipo of tipo_doc" [value]="tipo" [selected]="tipo">
+                                {{ tipo }}
+                            </option>
+                        </select>
                     </mat-form-field>
                 </div>
 

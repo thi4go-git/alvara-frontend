@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlvaraService } from 'src/app/servicos/alvara.service';
-import { Alvara } from '../alvara';
+import { Alvara } from '../../../model/alvara';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AvisosDialogService } from 'src/app/servicos/avisos-dialog.service';
 import { GeralException } from 'src/app/exception/geralException';

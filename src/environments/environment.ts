@@ -4,5 +4,5 @@ export const environment = {
     //apiUrl: 'http://localhost:8080',
     cli_id: 'my-angular-app',
     cli_secret: '@321',
-    versao: 'v11.10.2023'
+    versao: 'v12.10.2023'
 };
