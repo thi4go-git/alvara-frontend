@@ -30,7 +30,7 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
     private activatedRoute: ActivatedRoute
   ) { }
 
-  displayedColumns: string[] = ['id', 'tipo_doc', 'nome_arquivo',
+  displayedColumns: string[] = ['selecionado', 'id', 'tipo_doc', 'nome_arquivo',
     'numero_alvara', 'nome_empresa',
     'cnpj_empresa', 'data_emissao', 'data_vencimento', 'expira', 'observacao', 'pdf', 'edit', 'del'];
 
@@ -50,9 +50,12 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
   alvaraFilter: ArquivoFilterDTO = new ArquivoFilterDTO();
   tipoDocumento: any[] = [];
 
+  mostraPaginacao: boolean = true;
+
   tipo_doc: any[] = [];
 
   selection = new SelectionModel<Alvara>(true, []);
+  listaIdSelecionados: string[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -62,6 +65,7 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
     this.administrador = this.authService.isAdmin(this.authorities);
     this.activatedRoute.params.subscribe(parametro => {
       if (parametro && parametro['tipoConsulta'] != undefined) {
+        this.mostraPaginacao = false;
         this.listarPersonalizado();
       } else {
         this.alvaraFilter = new ArquivoFilterDTO();
@@ -136,7 +140,6 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
       let consultaParam = parametro['tipoConsulta'];
       if (parametro && consultaParam != undefined) {
         if (consultaParam == 'totalVencidos') {
-          //this.listarVencidos();
           this.listarVencidosPAge();
         } else {
           if (consultaParam == 'venceEm60dias') {
@@ -308,7 +311,6 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
 
     this.activatedRoute.params.subscribe(parametro => {
       let consultaParam = parametro['tipoConsulta'];
-
       if (consultaParam == undefined) {
         this.listagemComFiltros();
         console.log("Paginar listagemComFiltros");
@@ -422,7 +424,56 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
 
 
   limparFiltros() {
-    this.router.navigate(['/alvara/lista']);
+    location.reload();
+  }
+
+
+
+  populaListaSelecionados(alvara: Alvara) {
+    if (alvara.selecionado != undefined && alvara.selecionado) {
+      this.listaIdSelecionados.push(alvara.id.toString());
+    } else {
+      const indexRemover = this.listaIdSelecionados.indexOf(alvara.id.toString());
+      if (indexRemover !== -1) {
+        this.listaIdSelecionados.splice(indexRemover, 1);
+      }
+    }
+  }
+
+  deletarSelecionados() {
+    if (this.listaIdSelecionados.length > 0) {
+      this.avisoDialogService.openConfirmationDialog("Confirma a exclusão de ( " + this.listaIdSelecionados.length + ' ) Lançamento(s)?')
+        .then(result => {
+          if (result) {
+
+            this.service.deletarMultiplosByList(this.listaIdSelecionados)
+              .subscribe({
+                next: (_resposta) => {
+                  this.snackBar.open("Sucesso ao excluir Documentos: " + this.listaIdSelecionados.length, "SUCESSO!", {
+                    duration: 3000
+                  });
+                  this.listaIdSelecionados = [];
+                  this.listagemComFiltros();
+                },
+                error: (errorResponse) => {
+                  this.snackBar.open("Erro ao DELETAR Documentos!", "ERRO!", {
+                    duration: 2000
+                  });
+                  throw new GeralException(errorResponse);
+                }
+              });
+
+          } else {
+            this.snackBar.open("Processo cancelado!", "Cancelado!", {
+              duration: 3000
+            });
+          }
+        });
+    } else {
+      this.snackBar.open("Não existem Documentos selecionados!", "INFO!", {
+        duration: 2000
+      });
+    }
   }
 
 }

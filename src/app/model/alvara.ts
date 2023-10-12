@@ -1,4 +1,5 @@
 export class Alvara {
+    selecionado: boolean = false;
     id: number = 0;
     tipo_doc: any;
     nome_arquivo: string = '';

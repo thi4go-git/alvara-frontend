@@ -79,6 +79,10 @@ export class AlvaraService {
     return this.http.delete<any>(this.apiAlvara + "/delete/" + id,);
   }
 
+  deletarMultiplosByList(listaDeletar: string[]): Observable<any> {
+    return this.http.post<any>(this.apiAlvara + "/deletar-multiplos", listaDeletar);
+  }
+
   obterListaTipoDoc(): Observable<any[]> {
     return this.http.get<any[]>(this.apiAlvara + "/tipodocumento");
   }
