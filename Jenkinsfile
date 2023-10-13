@@ -40,7 +40,7 @@ pipeline {
         stage('Imagem Docker') {
             steps {
                 echo "Imagem Docker" 
-                sh 'docker build -t alvara-frontend:lts .'           
+                sh 'docker build -t alvara-frontend:latest .'           
             }
         }
         stage('Deploy'){
