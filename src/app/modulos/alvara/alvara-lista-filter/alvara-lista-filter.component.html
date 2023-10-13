@@ -52,6 +52,17 @@
                         </select>
                     </mat-form-field>
                 </div>
+                <div>
+                    <mat-form-field appearance="fill" class="espaco-filter">
+                        <mat-label> <b>Status Documento:</b> </mat-label>
+                        <select matNativeControl matInput [(ngModel)]="alvaraFilter.status_documento"
+                            [ngModelOptions]="{standalone: true}">
+                            <option *ngFor="let status of status_documento" [value]="status" [selected]="status">
+                                {{ status }}
+                            </option>
+                        </select>
+                    </mat-form-field>
+                </div>
 
                 <div id="row">
                     <div id="col-md-2">
@@ -131,30 +142,35 @@
 
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> id. </th>
-            <td mat-cell *matCellDef="let alvara"> {{alvara.id}} </td>
+            <td mat-cell *matCellDef="let alvara"> {{ alvara.id }} </td>
         </ng-container>
 
         <ng-container matColumnDef="tipo_doc">
             <th mat-header-cell *matHeaderCellDef> Tipo </th>
-            <td mat-cell *matCellDef="let alvara"> {{alvara.tipo_doc}} </td>
+            <td mat-cell *matCellDef="let alvara"> {{ alvara.tipo_doc }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status_documento">
+            <th mat-header-cell *matHeaderCellDef> Status </th>
+            <td mat-cell *matCellDef="let alvara"> {{ alvara.status_documento }} </td>
         </ng-container>
 
         <ng-container matColumnDef="nome_arquivo">
             <th mat-header-cell *matHeaderCellDef> Nome Arquivo </th>
-            <td mat-cell *matCellDef="let alvara"> {{alvara.nome_arquivo}} </td>
+            <td mat-cell *matCellDef="let alvara"> {{ alvara.nome_arquivo }} </td>
         </ng-container>
 
         <!-- Symbol Column -->
         <ng-container matColumnDef="numero_alvara">
             <th mat-header-cell *matHeaderCellDef>Nº Alvará</th>
-            <td mat-cell *matCellDef="let alvara"> {{alvara.numero_alvara}} </td>
+            <td mat-cell *matCellDef="let alvara"> {{ alvara.numero_alvara }} </td>
         </ng-container>
 
 
         <!-- Symbol Column -->
         <ng-container matColumnDef="nome_empresa">
             <th mat-header-cell *matHeaderCellDef> Empresa </th>
-            <td mat-cell *matCellDef="let alvara"> {{alvara.nome_empresa}} </td>
+            <td mat-cell *matCellDef="let alvara"> {{ alvara.nome_empresa }} </td>
         </ng-container>
 
 
@@ -181,7 +197,7 @@
         <!-- Symbol Column -->
         <ng-container matColumnDef="expira">
             <th mat-header-cell *matHeaderCellDef> Expira </th>
-            <td mat-cell *matCellDef="let alvara"> {{alvara.expira}} </td>
+            <td mat-cell *matCellDef="let alvara"> {{ alvara.expira }} </td>
         </ng-container>
 
         <!-- Symbol Column -->

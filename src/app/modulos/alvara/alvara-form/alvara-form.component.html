@@ -2,6 +2,13 @@
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item active">Edição</li>
 </ol>
+
+<div *ngIf="mostraProgresso">
+    Aguarde Processando arquivos...
+    <mat-progress-bar mode="indeterminate" class="progress">
+    </mat-progress-bar>
+</div>
+
 <div class="container">
     <form #arquivoForm="ngForm" (ngSubmit)="onSubmit()">
 
@@ -28,6 +35,15 @@
                 <select matNativeControl matInput [(ngModel)]="alvara.tipo_doc" [ngModelOptions]="{standalone: true}">
                     <option *ngFor="let tipo of tipo_doc" [value]="tipo" [selected]="tipo">
                         {{ tipo }}
+                    </option>
+                </select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label> <b>Status Documento:</b> </mat-label>
+                <select matNativeControl matInput [(ngModel)]="alvara.status_documento" [ngModelOptions]="{standalone: true}">
+                    <option *ngFor="let status of status_documento" [value]="status" [selected]="status">
+                        {{ status }}
                     </option>
                 </select>
             </mat-form-field>

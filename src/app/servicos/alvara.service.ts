@@ -75,7 +75,7 @@ export class AlvaraService {
     return this.http.put<any>(this.apiAlvara + "/atualizar", alvara);
   }
 
-  
+
   deletarArquivoPorId(id: number): Observable<any> {
     return this.http.delete<any>(this.apiAlvara + "/delete/" + id,);
   }
@@ -86,6 +86,10 @@ export class AlvaraService {
 
   obterListaTipoDoc(): Observable<any[]> {
     return this.http.get<any[]>(this.apiAlvara + "/tipodocumento");
+  }
+
+  obterListaStatusDocumento(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiAlvara + "/status-documento");
   }
 
   totalArquivos(): Observable<number> {

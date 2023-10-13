@@ -11,4 +11,5 @@ export class Alvara {
     expira: number = 0;
     pdf: any;
     observacao: string = '';
+    status_documento: any;
 }

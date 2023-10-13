@@ -3,4 +3,5 @@ export class ArquivoFilterDTO {
     cnpj_empresa: string = '';
     numero_alvara: string = '';   
     tipo_doc: string = '';
+    status_documento: string = '';
 }

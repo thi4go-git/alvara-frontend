@@ -30,7 +30,7 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
     private activatedRoute: ActivatedRoute
   ) { }
 
-  displayedColumns: string[] = ['selecionado', 'id', 'tipo_doc', 'nome_arquivo',
+  displayedColumns: string[] = ['selecionado', 'id', 'tipo_doc', 'status_documento', 'nome_arquivo',
     'numero_alvara', 'nome_empresa',
     'cnpj_empresa', 'data_emissao', 'data_vencimento', 'expira', 'observacao', 'pdf', 'edit', 'del'];
 
@@ -48,11 +48,11 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
   qtdeRegistros: number = 0;
 
   alvaraFilter: ArquivoFilterDTO = new ArquivoFilterDTO();
-  tipoDocumento: any[] = [];
 
   mostraPaginacao: boolean = true;
 
   tipo_doc: any[] = [];
+  status_documento: any[] = [];
 
   selection = new SelectionModel<Alvara>(true, []);
   listaIdSelecionados: string[] = [];
@@ -61,6 +61,7 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.definirComboBoxTipo();
+    this.definirComboBoxStatusDocumento();
     this.authorities = this.authService.getAuthoritiesToken();
     this.administrador = this.authService.isAdmin(this.authorities);
     this.activatedRoute.params.subscribe(parametro => {
@@ -98,7 +99,29 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
           this.tipo_doc.push('TODOS');
         },
         error: (errorResponse) => {
-          this.snackBar.open("Erro ao definir ComboBox ", "ERRO!", {
+          this.snackBar.open("Erro ao definir ComboBox TIPO ", "ERRO!", {
+            duration: 3000
+          });
+          throw new GeralException(errorResponse);
+        }
+      });
+  }
+
+  private definirComboBoxStatusDocumento() {
+    this.service
+      .obterListaStatusDocumento()
+      .subscribe({
+        next: (resposta) => {
+          for (let a = 0; a <= resposta.length; a = a + 1) {
+            const status = resposta[a];
+            if (status != undefined) {
+              this.status_documento.push(status);
+            }
+          }
+          this.status_documento.push('TODOS');
+        },
+        error: (errorResponse) => {
+          this.snackBar.open("Erro ao definir ComboBox STATUS", "ERRO!", {
             duration: 3000
           });
           throw new GeralException(errorResponse);

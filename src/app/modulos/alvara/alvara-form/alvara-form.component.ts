@@ -18,10 +18,15 @@ export class AlvaraFormComponent implements OnInit {
 
   id: number = 0;
   alvara: Alvara;
+
   tipo_doc: any[] = [];
+  status_documento: any[] = [];
+
   listaErros: string[] = [];
   listaArquivos: File[] = [];
   listaVazia: Boolean = true;
+
+  mostraProgresso: boolean = false;
 
   constructor(
     private router: Router,
@@ -35,7 +40,8 @@ export class AlvaraFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.definirComboBox();
+    this.definirComboBoxTIPO();
+    this.definirComboBoxSTATUS();
     this.listarPorId();
   }
 
@@ -59,15 +65,37 @@ export class AlvaraFormComponent implements OnInit {
     });
   }
 
-  definirComboBox() {
+  definirComboBoxTIPO() {
+    this.mostraProgresso = true;
     this.service
       .obterListaTipoDoc()
       .subscribe({
         next: (resposta) => {
+          this.mostraProgresso = false;
           this.tipo_doc = resposta;
         },
         error: (errorResponse) => {
-          this.snackBar.open("Erro ao definir ComboBox ", "ERRO!", {
+          this.mostraProgresso = false;
+          this.snackBar.open("Erro ao definir ComboBox TIPO ", "ERRO!", {
+            duration: 3000
+          });
+          throw new GeralException(errorResponse);
+        }
+      });
+  }
+
+  definirComboBoxSTATUS() {
+    this.mostraProgresso = true;
+    this.service
+      .obterListaStatusDocumento()
+      .subscribe({
+        next: (resposta) => {
+          this.mostraProgresso = false;
+          this.status_documento = resposta;
+        },
+        error: (errorResponse) => {
+          this.mostraProgresso = false;
+          this.snackBar.open("Erro ao definir ComboBox STATUS ", "ERRO!", {
             duration: 3000
           });
           throw new GeralException(errorResponse);
@@ -80,6 +108,7 @@ export class AlvaraFormComponent implements OnInit {
   }
 
   atualizar() {
+    this.mostraProgresso = true;
     if (this.alvara.cnpj_empresa) {
       let cnpjReplace = this.alvara.cnpj_empresa;
       cnpjReplace = cnpjReplace.replaceAll(".", "");
@@ -90,13 +119,15 @@ export class AlvaraFormComponent implements OnInit {
     this.service
       .atualizarArquivoPorId(this.alvara)
       .subscribe({
-        next: (resposta) => {
+        next: (_resposta) => {
+          this.mostraProgresso = false;
           this.snackBar.open("SUCESSO Ao Atualizar Informações!", "SUCESSO!", {
             duration: 2000
           });
           this.router.navigate(['/alvara/lista'])
         },
         error: (errorResponse) => {
+          this.mostraProgresso = false;
           this.snackBar.open("ERRO Ao Atualizar Informações, verifique o LOG na parte superior!", "ERRO!", {
             duration: 5000
           });
@@ -117,19 +148,23 @@ export class AlvaraFormComponent implements OnInit {
   }
 
   dialogUpdateUpload() {
+    this.mostraProgresso = true;
     if (this.listaArquivos.length > 0) {
       const msg = 'O Processo atual substituirá todas as informações desse documento, tem certeza?';
       this.avisoDialogService.openConfirmationDialog(msg)
         .then(result => {
           if (result) {
+            this.mostraProgresso = false;
             this.onUpload();
           } else {
+            this.mostraProgresso = false;
             this.snackBar.open("Processo Cancelado!", "Cancelado!", {
               duration: 3000
             });
           }
         });
     } else {
+      this.mostraProgresso = false;
       this.snackBar.open("Nenhum arquivo foi selecionado!", "INFO!", {
         duration: 2000
       });
@@ -144,16 +179,19 @@ export class AlvaraFormComponent implements OnInit {
   }
 
   uploadUpdate(formData: FormData) {
+    this.mostraProgresso = true;
     this.service
       .uploadUpdatePdf(formData, this.id)
       .subscribe({
         next: (_response) => {
+          this.mostraProgresso = false;
           this.snackBar.open("Sucesso ao Atualizar Documento", "SUCESSO!", {
             duration: 3000
           });
           this.listarPorId();
         },
         error: (errorResponse) => {
+          this.mostraProgresso = false;
           this.snackBar.open("Erro ao realizar UPLOAD", "ERRO!", {
             duration: 3000
           });

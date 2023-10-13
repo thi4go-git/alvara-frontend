@@ -30,6 +30,8 @@ export class UsuarioListComponent implements OnInit {
   colunas = ['foto', 'id', 'username', 'password',
     'role', 'ativo', 'nome', 'cpf', 'email', 'celular', 'admin'];
 
+  mostraProgresso: boolean = false;
+
 
   constructor(
     private service: UsuarioService,
@@ -52,6 +54,7 @@ export class UsuarioListComponent implements OnInit {
 
   listarUsuarios(pagina = 0, tamanho = 10) {
 
+    this.mostraProgresso = true;
     this.service.listarTodos(pagina, tamanho)
       .subscribe({
         next: (resposta) => {
@@ -70,8 +73,10 @@ export class UsuarioListComponent implements OnInit {
               duration: 2000
             });
           }
+          this.mostraProgresso = false;
         },
         error: (responseError) => {
+          this.mostraProgresso = false;
           this.snackBar.open("Erro ao Obter Lista Usuários!", "ERRO!", {
             duration: 2000
           });
@@ -83,6 +88,7 @@ export class UsuarioListComponent implements OnInit {
 
 
   ativarDesativar(usuario: Usuario) {
+    this.mostraProgresso = true;
     this.service.ativarUsuario(usuario.id)
       .subscribe({
         next: (_resposta) => {
@@ -90,8 +96,10 @@ export class UsuarioListComponent implements OnInit {
             duration: 2000
           });
           location.reload();
+          this.mostraProgresso = false;
         },
         error: (responseError) => {
+          this.mostraProgresso = false;
           this.snackBar.open("erro ativarDesativar!", "Erro!", {
             duration: 2000
           });
@@ -103,15 +111,18 @@ export class UsuarioListComponent implements OnInit {
 
 
   ativarDesativarAdm(usuario: Usuario) {
+    this.mostraProgresso = true;
     this.service.ativarUsuarioAdm(usuario.id)
       .subscribe({
         next: (_resposta) => {
+          this.mostraProgresso = false;
           this.snackBar.open("SUCESSO!", "SUCESSO!", {
             duration: 2000
           });
           location.reload()
         },
         error: (responseError) => {
+          this.mostraProgresso = false;
           this.snackBar.open("erro ativarDesativarAdm!", "Erro!", {
             duration: 2000
           });
@@ -129,12 +140,15 @@ export class UsuarioListComponent implements OnInit {
       const formData: FormData = new FormData();
       formData.append("foto", foto);
 
+      this.mostraProgresso = true;
       this.service.uploadFoto(usuario.id, formData)
         .subscribe({
           next: (_resposta) => {
             this.listarUsuarios();
+            this.mostraProgresso = false;
           },
           error: (responseError) => {
+            this.mostraProgresso = false;
             this.snackBar.open("erro ao enviar FOTO", "Erro!", {
               duration: 2000
             });
@@ -176,15 +190,18 @@ export class UsuarioListComponent implements OnInit {
   }
 
   deletarUsuario(usuario: Usuario) {
+    this.mostraProgresso = true;
     this.service.deletarporId(usuario.id)
       .subscribe({
-        next: (resposta) => {
+        next: (_resposta) => {
           this.snackBar.open("SUCESSO ao Deletar Usuário!", "SUCESSO!", {
             duration: 3000
           });
           this.listarUsuarios();
+          this.mostraProgresso = false;
         },
         error: (responseError) => {
+          this.mostraProgresso = false;
           this.snackBar.open("ERRO ao Deletar Usuário!", "ERRO!", {
             duration: 3000
           });

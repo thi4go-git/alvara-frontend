@@ -19,6 +19,8 @@ export class UsuarioFormComponent {
   listaErros: string[];
   hide = true;
 
+  mostraProgresso: boolean = false;
+
   constructor(
     private formBuild: FormBuilder,
     private snackBar: MatSnackBar,
@@ -50,16 +52,19 @@ export class UsuarioFormComponent {
     usuario.nome = formValues.nome;
     usuario.cpf = formValues.cpf;
 
+    this.mostraProgresso = true;
     this.service
       .salvarUsuario(usuario)
       .subscribe({
-        next: (response) => {
+        next: (_response) => {
+          this.mostraProgresso = false;
           this.snackBar.open("SUCESSO ao salvar Usuário!", "SUCESSO!", {
             duration: 2000
           });
-          this.router.navigate(['/preferencias/form'])
+          this.router.navigate(['/preferencias/form'])         
         },
         error: (errorResponse) => {
+          this.mostraProgresso = false;
           this.listaErros = errorResponse.error.erros
           this.snackBar.open("ERRO ao salvar Usuário!!", "ERRO!", {
             duration: 2000

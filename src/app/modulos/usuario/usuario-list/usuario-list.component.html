@@ -2,6 +2,13 @@
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item active">Consulta</li>
 </ol>
+
+<div *ngIf="mostraProgresso">
+    Aguarde Processando arquivos...
+    <mat-progress-bar mode="indeterminate" class="progress">
+    </mat-progress-bar>
+</div>
+
 <div class="container">
     <div id="row">
         <div id="col-md-2">
