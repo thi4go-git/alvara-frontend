@@ -442,7 +442,7 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
 
   deletarSelecionados() {
     if (this.listaIdSelecionados.length > 0) {
-      this.avisoDialogService.openConfirmationDialog("Confirma a exclusão de ( " + this.listaIdSelecionados.length + ' ) Lançamento(s)?')
+      this.avisoDialogService.openConfirmationDialog("Confirma a exclusão de ( " + this.listaIdSelecionados.length + ' ) Documento(s)?')
         .then(result => {
           if (result) {
 

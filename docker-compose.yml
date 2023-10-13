@@ -2,13 +2,13 @@ version: "3"
 services:
     alvara-frontend:
         container_name: alvara-frontend
-        image: alvara-frontend:lts
+        image: alvara-frontend:latest
         ports:
             - 3001:80
         restart: always
         environment:
             - PRODUCTION=false
             - API_URL=http://cloudtecnologia.dynns.com:8090
-            - VERSAO='v_12.10.2023'
+            - VERSAO='v_13.10.2023'
             - CLI_ID=my-angular-app
             - CLI_SECRET=@321
