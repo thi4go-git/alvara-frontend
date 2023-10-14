@@ -405,8 +405,8 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
   }
 
   base64ToArrayBufferAngular16(base64: any) {
-    // instalar a dep:  npm i buffer && npm install --save-dev @types/node
-    // configurar o types node no tsconfig.json  "types": [   "node",]
+    // instalar a dep:  npm i buffer && npm install --save-dev @types/node 
+    // configurar o types node no tsconfig.json  "types": [   "node",] (Dentro de compilerOptions )
     // Usar o: import { Buffer } from 'buffer';
     //(Buffer.from) Usar do angular 16 adiante.
     if (base64) {
