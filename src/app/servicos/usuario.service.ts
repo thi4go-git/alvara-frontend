@@ -29,7 +29,7 @@ export class UsuarioService {
   }
 
   uploadFoto(id: number, formData: FormData): Observable<any> {
-    return this.http.put(this.apiUsuario + '/foto/' + id, formData, { responseType: 'blob' });
+    return this.http.put(this.apiUsuario + "/" + id + "/adicionar-foto", formData, { responseType: 'blob' });
   }
 
   ativarUsuario(id: number): Observable<any> {
