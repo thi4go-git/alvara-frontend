@@ -22,6 +22,9 @@
     "lib": [
       "ES2022",
       "dom"
+    ],
+    "types": [
+      "node", // Para usar o Types do node e poder usar  Buffer.from(base64, 'base64');
     ]
   },
   "angularCompilerOptions": {

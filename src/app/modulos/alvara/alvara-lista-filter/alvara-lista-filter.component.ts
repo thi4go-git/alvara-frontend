@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AutenticacaoService } from 'src/app/servicos/autenticacao.service';
 import { GeralException } from 'src/app/exception/geralException';
 import { ArquivoFilterDTO } from 'src/app/model/arquivoFilterDTO';
+import { Buffer } from 'buffer';
 
 
 @Component({
@@ -369,7 +370,7 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
     this.service.obterArquivoPorId(alvara.id)
       .subscribe({
         next: (resposta) => {
-          var sampleArr = this.base64ToArrayBuffer(resposta.pdf);
+          var sampleArr = this.base64ToArrayBufferAngular16(resposta.pdf);
           this.saveByteArray("ARQUIVO.pdf", sampleArr);
           if (this.listaAlvaras.length == 0) {
             this.snackBar.open("Arquivo BAIXADO!", "Info!", {
@@ -388,7 +389,11 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
 
   }
 
-  base64ToArrayBuffer(base64: any) {
+
+  base64ToArrayBufferAngular15(base64: any) {
+    //(window.atob) Só funciona até angular 15 conforme MDN Reference
+    // window.btoa('test')  faz o encode: ('test' > dGVzdA== )
+    // window.atob('dGVzdA==') faz o decode: ('dGVzdA==' > test )
     var binaryString = window.atob(base64);
     var binaryLen = binaryString.length;
     var bytes = new Uint8Array(binaryLen);
@@ -398,6 +403,26 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
     }
     return bytes;
   }
+
+  base64ToArrayBufferAngular16(base64: any) {
+    // instalar a dep:  npm i buffer && npm install --save-dev @types/node
+    // configurar o types node no tsconfig.json  "types": [   "node",]
+    // Usar o: import { Buffer } from 'buffer';
+    //(Buffer.from) Usar do angular 16 adiante.
+    if (base64) {
+      var binaryString = Buffer.from(base64, 'base64');
+      var bytes = new Uint8Array(binaryString.length);
+      for (var i = 0; i < binaryString.length; i++) {
+        bytes[i] = binaryString[i];
+      }
+      return bytes;
+    } else {
+      console.error("base64 está indefinido ou vazio");
+      return null;
+    }
+  }
+
+
 
   saveByteArray(reportName: any, byte: any) {
     var blob = new Blob([byte], { type: "application/pdf" });
