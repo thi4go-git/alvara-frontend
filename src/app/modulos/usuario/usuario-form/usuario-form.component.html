@@ -39,15 +39,28 @@
 
     <mat-form-field class="full-width">
         <mat-icon matSuffix>account_box</mat-icon>
-        <mat-label>nome:</mat-label>
+        <mat-label>Nome:</mat-label>
         <input formControlName="nome" matInput placeholder="Digite o nome:" />
     </mat-form-field>
 
     <mat-form-field class="full-width">
         <mat-icon matSuffix>fingerprint</mat-icon>
-        <mat-label>cpf:</mat-label>
-        <input formControlName="cpf" matInput placeholder="Digite o cpf:" 
-        mask="000.000.000-00" [showMaskTyped]="true" />
+        <mat-label>CPF:</mat-label>
+        <input formControlName="cpf" matInput placeholder="Digite o cpf:" mask="000.000.000-00"
+            [showMaskTyped]="true" />
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+        <mat-icon matSuffix>fingerprint</mat-icon>
+        <mat-label>Email:</mat-label>
+        <input formControlName="email" matInput placeholder="Digite o Email:" />
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+        <mat-icon matSuffix>fingerprint</mat-icon>
+        <mat-label>Nº Celular:</mat-label>
+        <input formControlName="celular" matInput placeholder="Digite o Nº Celular:" mask="(00) 00000-0000"
+            [showMaskTyped]="true" />
     </mat-form-field>
 
     <button type="submit" class="btn btn-success" [disabled]="!formulario.valid">

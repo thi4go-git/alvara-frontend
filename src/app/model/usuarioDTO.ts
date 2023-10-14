@@ -3,4 +3,6 @@ export class UsuarioDTO {
     password: string = '';
     nome: string = '';
     cpf: string = ''
+    email: string = '';
+    celular: string = ''
 }

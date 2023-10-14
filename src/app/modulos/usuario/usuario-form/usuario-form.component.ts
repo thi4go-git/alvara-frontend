@@ -34,6 +34,8 @@ export class UsuarioFormComponent {
       password: ['', Validators.required],
       nome: ['', Validators.required],
       cpf: ['', Validators.required],
+      email: ['', Validators.required],
+      celular: ['', Validators.required],
     })
   }
 
@@ -51,6 +53,8 @@ export class UsuarioFormComponent {
     usuario.password = formValues.password;
     usuario.nome = formValues.nome;
     usuario.cpf = formValues.cpf;
+    usuario.email = formValues.email;
+    usuario.celular = formValues.celular;
 
     this.mostraProgresso = true;
     this.service
@@ -61,7 +65,7 @@ export class UsuarioFormComponent {
           this.snackBar.open("SUCESSO ao salvar Usuário!", "SUCESSO!", {
             duration: 2000
           });
-          this.router.navigate(['/preferencias/form'])         
+          this.router.navigate(['/preferencias/form'])
         },
         error: (errorResponse) => {
           this.mostraProgresso = false;

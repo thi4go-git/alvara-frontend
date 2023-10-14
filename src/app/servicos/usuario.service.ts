@@ -24,8 +24,8 @@ export class UsuarioService {
     return this.http.get<UsuarioPaginator>(this.apiUsuario + "?" + params.toString());
   }
 
-  salvarUsuario(usuarioDt: UsuarioDTO): Observable<Usuario> {
-    return this.http.post<Usuario>(this.apiUsuario + '/novo', usuarioDt);
+  salvarUsuario(usuarioDto: UsuarioDTO): Observable<Usuario> {
+    return this.http.post<Usuario>(this.apiUsuario + '/novo', usuarioDto);
   }
 
   uploadFoto(id: number, formData: FormData): Observable<any> {
