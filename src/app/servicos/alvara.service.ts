@@ -24,10 +24,6 @@ export class AlvaraService {
     return this.http.post(this.apiAlvara + '/' + idDocumento + '/pdf-update', formData, { responseType: 'blob' });
   }
 
-  baixarArquivo(id: number): Observable<any> {
-    return this.http.get<any>(this.apiAlvara + "/download/" + id);
-  }
-
   listarTodosFilterMatcher(page: number, size: number, alvara: ArquivoFilterDTO): Observable<AlvaraPaginator> {
     const params = new HttpParams()
       .set('page', page)
