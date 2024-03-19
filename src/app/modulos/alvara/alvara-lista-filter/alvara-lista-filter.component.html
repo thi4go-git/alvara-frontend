@@ -20,7 +20,6 @@
         <br />
         <div class="container">
             <form #arquivoForm="ngForm">
-
                 <div class="espaco-filter">
                     <mat-form-field appearance="fill" class="espaco-filter">
                         <mat-icon matSuffix>fingerprint</mat-icon>
@@ -34,8 +33,6 @@
                         <input matInput placeholder="CNPJ" name="cnpj_empresa" [(ngModel)]="alvaraFilter.cnpj_empresa"
                             mask="00.000.000/0000-00" [showMaskTyped]="true" />
                     </mat-form-field>
-                </div>
-                <div>
                     <mat-form-field appearance="fill" class="espaco-filter">
                         <mat-icon matSuffix>fingerprint</mat-icon>
                         <mat-label> <b>Nº Alvará</b> </mat-label>
@@ -51,8 +48,6 @@
                             </option>
                         </select>
                     </mat-form-field>
-                </div>
-                <div>
                     <mat-form-field appearance="fill" class="espaco-filter">
                         <mat-label> <b>Status Documento:</b> </mat-label>
                         <select matNativeControl matInput [(ngModel)]="alvaraFilter.status_documento"
@@ -62,6 +57,12 @@
                             </option>
                         </select>
                     </mat-form-field>
+                </div>
+                <div>
+
+                </div>
+                <div>
+
                 </div>
 
                 <div id="row">

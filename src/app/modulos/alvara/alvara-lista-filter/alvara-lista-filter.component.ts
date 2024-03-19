@@ -371,7 +371,7 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
       .subscribe({
         next: (resposta) => {
           var sampleArr = this.base64ToArrayBufferAngular16(resposta.pdf);
-          this.saveByteArray(alvara.nome_arquivo, sampleArr);
+          this.saveByteArray(alvara.nomeArquivo, sampleArr);
           if (this.listaAlvaras.length == 0) {
             this.snackBar.open("Arquivo BAIXADO!", "Info!", {
               duration: 2000

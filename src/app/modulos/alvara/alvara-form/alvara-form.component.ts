@@ -19,8 +19,8 @@ export class AlvaraFormComponent implements OnInit {
   id: number = 0;
   alvara: Alvara;
 
-  tipo_doc: any[] = [];
-  status_documento: any[] = [];
+  tipoDoc: any[] = [];
+  statusDocumento: any[] = [];
 
   listaErros: string[] = [];
   listaArquivos: File[] = [];
@@ -72,7 +72,7 @@ export class AlvaraFormComponent implements OnInit {
       .subscribe({
         next: (resposta) => {
           this.mostraProgresso = false;
-          this.tipo_doc = resposta;
+          this.tipoDoc = resposta;
         },
         error: (errorResponse) => {
           this.mostraProgresso = false;
@@ -91,7 +91,7 @@ export class AlvaraFormComponent implements OnInit {
       .subscribe({
         next: (resposta) => {
           this.mostraProgresso = false;
-          this.status_documento = resposta;
+          this.statusDocumento = resposta;
         },
         error: (errorResponse) => {
           this.mostraProgresso = false;
@@ -109,12 +109,12 @@ export class AlvaraFormComponent implements OnInit {
 
   atualizar() {
     this.mostraProgresso = true;
-    if (this.alvara.cnpj_empresa) {
-      let cnpjReplace = this.alvara.cnpj_empresa;
+    if (this.alvara.cnpjEmpresa) {
+      let cnpjReplace = this.alvara.cnpjEmpresa;
       cnpjReplace = cnpjReplace.replaceAll(".", "");
       cnpjReplace = cnpjReplace.replaceAll("/", "");
       cnpjReplace = cnpjReplace.replaceAll("-", "");
-      this.alvara.cnpj_empresa = cnpjReplace;
+      this.alvara.cnpjEmpresa = cnpjReplace;
     }
     this.service
       .atualizarArquivoPorId(this.alvara)

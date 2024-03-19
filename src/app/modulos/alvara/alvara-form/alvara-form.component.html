@@ -1,7 +1,4 @@
 <h1 class="mt-4">Editar Alvará</h1>
-<ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item active">Edição</li>
-</ol>
 
 <div *ngIf="mostraProgresso">
     Aguarde Processando arquivos...
@@ -32,8 +29,8 @@
 
             <mat-form-field appearance="fill" class="full-width">
                 <mat-label> <b>Tipo Documento:</b> </mat-label>
-                <select matNativeControl matInput [(ngModel)]="alvara.tipo_doc" [ngModelOptions]="{standalone: true}">
-                    <option *ngFor="let tipo of tipo_doc" [value]="tipo" [selected]="tipo">
+                <select matNativeControl matInput [(ngModel)]="alvara.tipoDoc" [ngModelOptions]="{standalone: true}">
+                    <option *ngFor="let tipo of tipoDoc" [value]="tipo" [selected]="tipo">
                         {{ tipo }}
                     </option>
                 </select>
@@ -41,8 +38,9 @@
 
             <mat-form-field appearance="fill" class="full-width">
                 <mat-label> <b>Status Documento:</b> </mat-label>
-                <select matNativeControl matInput [(ngModel)]="alvara.status_documento" [ngModelOptions]="{standalone: true}">
-                    <option *ngFor="let status of status_documento" [value]="status" [selected]="status">
+                <select matNativeControl matInput [(ngModel)]="alvara.statusDocumento"
+                    [ngModelOptions]="{standalone: true}">
+                    <option *ngFor="let status of statusDocumento" [value]="status" [selected]="status">
                         {{ status }}
                     </option>
                 </select>
@@ -51,40 +49,40 @@
             <mat-form-field class="full-width" appearance="fill">
                 <mat-icon matSuffix>picture_as_pdf</mat-icon>
                 <mat-label> <b>Nome Arquivo:</b> </mat-label>
-                <input matInput placeholder="Informe o Nome Arquivo:" name="nome_arquivo"
-                    [(ngModel)]="alvara.nome_arquivo" />
+                <input matInput placeholder="Informe o Nome Arquivo:" name="nomeArquivo"
+                    [(ngModel)]="alvara.nomeArquivo" />
             </mat-form-field>
 
             <mat-form-field class="full-width" appearance="fill">
                 <mat-icon matSuffix>confirmation_number</mat-icon>
                 <mat-label> <b>Nº Alvará:</b> </mat-label>
-                <input matInput placeholder="Informe o Nº Alvará:" name="numero_alvara"
-                    [(ngModel)]="alvara.numero_alvara" />
+                <input matInput placeholder="Informe o Nº Alvará:" name="numeroAlvara"
+                    [(ngModel)]="alvara.numeroAlvara" />
             </mat-form-field>
 
             <mat-form-field class="full-width" appearance="fill">
                 <mat-icon matSuffix>text_format</mat-icon>
                 <mat-label> <b>Nome Empresa:</b> </mat-label>
-                <input matInput placeholder="Informe a Empresa" name="nome_empresa" [(ngModel)]="alvara.nome_empresa" />
+                <input matInput placeholder="Informe a Empresa" name="nomeEmpresa" [(ngModel)]="alvara.nomeEmpresa" />
             </mat-form-field>
 
             <mat-form-field class="full-width" appearance="fill">
                 <mat-icon matSuffix>assignment_ind</mat-icon>
                 <mat-label> <b>CNPJ Empresa:</b> </mat-label>
-                <input matInput placeholder="Informe a CNPJ" name="cnpj_empresa" [(ngModel)]="alvara.cnpj_empresa"
+                <input matInput placeholder="Informe a CNPJ" name="cnpjEmpresa" [(ngModel)]="alvara.cnpjEmpresa"
                     mask="00.000.000/0000-00" [showMaskTyped]="true" />
             </mat-form-field>
 
             <mat-form-field class="full-width" appearance="fill">
                 <mat-label> <b>Data Emissão:</b> </mat-label>
-                <input matInput placeholder="Informe a Data Emissão" type="date" name="data_emissao"
-                    [(ngModel)]="alvara.data_emissao" />
+                <input matInput placeholder="Informe a Data Emissão" type="date" name="dataEmissao"
+                    [(ngModel)]="alvara.dataEmissao" />
             </mat-form-field>
 
             <mat-form-field class="full-width" appearance="fill">
                 <mat-label> <b>Data Vencimento:</b> </mat-label>
-                <input matInput placeholder="Informe a Data Vencimento" type="date" name="data_vencimento"
-                    [(ngModel)]="alvara.data_vencimento" />
+                <input matInput placeholder="Informe a Data Vencimento" type="date" name="dataVencimento"
+                    [(ngModel)]="alvara.dataVencimento" />
             </mat-form-field>
 
             <mat-form-field class="full-width" appearance="fill">

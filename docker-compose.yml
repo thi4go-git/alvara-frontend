@@ -9,6 +9,6 @@ services:
         environment:
             - PRODUCTION=false
             - API_URL=http://cloudtecnologia.dynns.com:8002
-            - VERSAO='v_03.11.2023'
+            - VERSAO='v_19.03.2024'
             - CLI_ID=my-angular-app
             - CLI_SECRET=@321

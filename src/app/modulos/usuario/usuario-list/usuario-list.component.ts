@@ -169,7 +169,7 @@ export class UsuarioListComponent implements OnInit {
 
   infoUsuario(usuario: Usuario) {
     this.dialog.open(UsuarioInfoComponent, {
-      width: '400px', height: '450px',
+      width: '400px', height: '500px',
       data: usuario
     });
   }
