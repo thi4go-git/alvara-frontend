@@ -23,7 +23,7 @@ export class AutenticacaoGuard implements CanActivate {
       return true;
     } else {
       localStorage.clear();
-      this.router.navigateByUrl('/login');// navigateByUrl recarrega a Pág.
+      this.router.navigateByUrl('/login');
       return false;
     }
 

@@ -1,7 +1,7 @@
 export class ArquivoFilterDTO {
-    nome_empresa: string = '';
-    cnpj_empresa: string = '';
-    numero_alvara: string = '';   
-    tipo_doc: string = '';
-    status_documento: string = '';
+    nomeEmpresa: string = '';
+    cnpjEmpresa: string = '';
+    numeroAlvara: string = '';   
+    tipoDoc: string = '';
+    statusDocumento: string = '';
 }

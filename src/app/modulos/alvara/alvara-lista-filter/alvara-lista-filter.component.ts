@@ -31,9 +31,9 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
     private activatedRoute: ActivatedRoute
   ) { }
 
-  displayedColumns: string[] = ['selecionado', 'id', 'tipo_doc', 'status_documento', 'nome_arquivo',
-    'numero_alvara', 'nome_empresa',
-    'cnpj_empresa', 'data_emissao', 'data_vencimento', 'expira', 'observacao', 'pdf', 'edit', 'del'];
+  displayedColumns: string[] = ['selecionado', 'id', 'tipoDoc', 'statusDocumento', 'nomeArquivo',
+    'numeroAlvara', 'nomeEmpresa',
+    'cnpjEmpresa', 'dataEmissao', 'dataVencimento', 'expira', 'observacao', 'pdf', 'edit', 'del'];
 
   administrador: boolean = false;
   authorities: string[] = [];
@@ -52,8 +52,8 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
 
   mostraPaginacao: boolean = true;
 
-  tipo_doc: any[] = [];
-  status_documento: any[] = [];
+  tipoDoc: any[] = [];
+  statusDocumento: any[] = [];
 
   selection = new SelectionModel<Alvara>(true, []);
   listaIdSelecionados: string[] = [];
@@ -94,10 +94,10 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
           for (let a = 0; a <= resposta.length; a = a + 1) {
             const tipo = resposta[a];
             if (tipo != undefined) {
-              this.tipo_doc.push(tipo);
+              this.tipoDoc.push(tipo);
             }
           }
-          this.tipo_doc.push('TODOS');
+          this.tipoDoc.push('TODOS');
         },
         error: (errorResponse) => {
           this.snackBar.open("Erro ao definir ComboBox TIPO ", "ERRO!", {
@@ -116,10 +116,10 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
           for (let a = 0; a <= resposta.length; a = a + 1) {
             const status = resposta[a];
             if (status != undefined) {
-              this.status_documento.push(status);
+              this.statusDocumento.push(status);
             }
           }
-          this.status_documento.push('TODOS');
+          this.statusDocumento.push('TODOS');
         },
         error: (errorResponse) => {
           this.snackBar.open("Erro ao definir ComboBox STATUS", "ERRO!", {
@@ -136,6 +136,10 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
       .subscribe({
         next: (resposta) => {
           this.listaAlvaras = resposta.content;
+
+console.log( this.listaAlvaras);
+
+
           this.ELEMENT_DATA = this.listaAlvaras;
           this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
           this.totalElementos = resposta.totalElements;

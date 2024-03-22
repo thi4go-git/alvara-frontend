@@ -24,35 +24,35 @@
                     <mat-form-field appearance="fill" class="espaco-filter">
                         <mat-icon matSuffix>fingerprint</mat-icon>
                         <mat-label> <b>Nome Empresa</b> </mat-label>
-                        <input matInput placeholder="Nome Empresa:" name="nome_empresa"
-                            [(ngModel)]="alvaraFilter.nome_empresa" />
+                        <input matInput placeholder="Nome Empresa:" name="nomeEmpresa"
+                            [(ngModel)]="alvaraFilter.nomeEmpresa" />
                     </mat-form-field>
                     <mat-form-field appearance="fill" class="espaco-filter">
                         <mat-icon matSuffix>fingerprint</mat-icon>
                         <mat-label> <b>CNPJ</b> </mat-label>
-                        <input matInput placeholder="CNPJ" name="cnpj_empresa" [(ngModel)]="alvaraFilter.cnpj_empresa"
+                        <input matInput placeholder="CNPJ" name="cnpjEmpresa" [(ngModel)]="alvaraFilter.cnpjEmpresa"
                             mask="00.000.000/0000-00" [showMaskTyped]="true" />
                     </mat-form-field>
                     <mat-form-field appearance="fill" class="espaco-filter">
                         <mat-icon matSuffix>fingerprint</mat-icon>
                         <mat-label> <b>Nº Alvará</b> </mat-label>
-                        <input matInput placeholder="Nº Alvará:" name="numero_alvara"
-                            [(ngModel)]="alvaraFilter.numero_alvara" />
+                        <input matInput placeholder="Nº Alvará:" name="numeroAlvara"
+                            [(ngModel)]="alvaraFilter.numeroAlvara" />
                     </mat-form-field>
                     <mat-form-field appearance="fill" class="espaco-filter">
                         <mat-label> <b>Tipo Documento:</b> </mat-label>
-                        <select matNativeControl matInput [(ngModel)]="alvaraFilter.tipo_doc"
+                        <select matNativeControl matInput [(ngModel)]="alvaraFilter.tipoDoc"
                             [ngModelOptions]="{standalone: true}">
-                            <option *ngFor="let tipo of tipo_doc" [value]="tipo" [selected]="tipo">
+                            <option *ngFor="let tipo of tipoDoc" [value]="tipo" [selected]="tipo">
                                 {{ tipo }}
                             </option>
                         </select>
                     </mat-form-field>
                     <mat-form-field appearance="fill" class="espaco-filter">
                         <mat-label> <b>Status Documento:</b> </mat-label>
-                        <select matNativeControl matInput [(ngModel)]="alvaraFilter.status_documento"
+                        <select matNativeControl matInput [(ngModel)]="alvaraFilter.statusDocumento"
                             [ngModelOptions]="{standalone: true}">
-                            <option *ngFor="let status of status_documento" [value]="status" [selected]="status">
+                            <option *ngFor="let status of statusDocumento" [value]="status" [selected]="status">
                                 {{ status }}
                             </option>
                         </select>
@@ -146,52 +146,52 @@
             <td mat-cell *matCellDef="let alvara"> {{ alvara.id }} </td>
         </ng-container>
 
-        <ng-container matColumnDef="tipo_doc">
+        <ng-container matColumnDef="tipoDoc">
             <th mat-header-cell *matHeaderCellDef> Tipo </th>
-            <td mat-cell *matCellDef="let alvara"> {{ alvara.tipo_doc }} </td>
+            <td mat-cell *matCellDef="let alvara"> {{ alvara.tipoDoc }} </td>
         </ng-container>
 
-        <ng-container matColumnDef="status_documento">
+        <ng-container matColumnDef="statusDocumento">
             <th mat-header-cell *matHeaderCellDef> Status </th>
-            <td mat-cell *matCellDef="let alvara"> {{ alvara.status_documento }} </td>
+            <td mat-cell *matCellDef="let alvara"> {{ alvara.statusDocumento }} </td>
         </ng-container>
 
-        <ng-container matColumnDef="nome_arquivo">
+        <ng-container matColumnDef="nomeArquivo">
             <th mat-header-cell *matHeaderCellDef> Nome Arquivo </th>
-            <td mat-cell *matCellDef="let alvara"> {{ alvara.nome_arquivo }} </td>
+            <td mat-cell *matCellDef="let alvara"> {{ alvara.nomeArquivo }} </td>
         </ng-container>
 
         <!-- Symbol Column -->
-        <ng-container matColumnDef="numero_alvara">
+        <ng-container matColumnDef="numeroAlvara">
             <th mat-header-cell *matHeaderCellDef>Nº Alvará</th>
-            <td mat-cell *matCellDef="let alvara"> {{ alvara.numero_alvara }} </td>
+            <td mat-cell *matCellDef="let alvara"> {{ alvara.numeroAlvara }} </td>
         </ng-container>
 
 
         <!-- Symbol Column -->
-        <ng-container matColumnDef="nome_empresa">
+        <ng-container matColumnDef="nomeEmpresa">
             <th mat-header-cell *matHeaderCellDef> Empresa </th>
-            <td mat-cell *matCellDef="let alvara"> {{ alvara.nome_empresa }} </td>
+            <td mat-cell *matCellDef="let alvara"> {{ alvara.nomeEmpresa }} </td>
         </ng-container>
 
 
         <!-- Symbol Column -->
-        <ng-container matColumnDef="cnpj_empresa">
+        <ng-container matColumnDef="cnpjEmpresa">
             <th mat-header-cell *matHeaderCellDef> CNPJ </th>
-            <td mat-cell *matCellDef="let alvara"> {{ alvara.cnpj_empresa | cnpjFormat }} </td>
+            <td mat-cell *matCellDef="let alvara"> {{ alvara.cnpjEmpresa | cnpjFormat }} </td>
         </ng-container>
 
         <!-- Symbol Column -->
-        <ng-container matColumnDef="data_emissao">
+        <ng-container matColumnDef="dataEmissao">
             <th mat-header-cell *matHeaderCellDef> Emissão </th>
-            <td mat-cell *matCellDef="let alvara"> {{ alvara.data_emissao | date:'dd/MM/yyyy' }}</td>
+            <td mat-cell *matCellDef="let alvara"> {{ alvara.dataEmissao | date:'dd/MM/yyyy' }}</td>
         </ng-container>
 
 
         <!-- Symbol Column -->
-        <ng-container matColumnDef="data_vencimento">
+        <ng-container matColumnDef="dataVencimento">
             <th mat-header-cell *matHeaderCellDef> Vencimento </th>
-            <td mat-cell *matCellDef="let alvara"> {{ alvara.data_vencimento | date:'dd/MM/yyyy' }} </td>
+            <td mat-cell *matCellDef="let alvara"> {{ alvara.dataVencimento | date:'dd/MM/yyyy' }} </td>
         </ng-container>
 
 
