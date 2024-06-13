@@ -11,3 +11,4 @@ services:
             - apiUrl=http://cloudtecnologia.dynns.com:8090
             - CLI_ID=my-angular-app
             - CLI_SECRET=@321
+            - cliente=Contabilidade NOME

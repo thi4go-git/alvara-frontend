@@ -8,4 +8,5 @@ import { environment } from 'src/environments/environment';
 })
 export class RodapeComponent {
   swaggerApi: string = environment.apiUrl + '/swagger-ui.html';
+  versao: string = environment.cliente;
 }
