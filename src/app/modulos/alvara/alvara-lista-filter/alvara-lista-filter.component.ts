@@ -31,7 +31,7 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
     private activatedRoute: ActivatedRoute
   ) { }
 
-  displayedColumns: string[] = ['selecionado', 'id', 'tipoDoc', 'statusDocumento', 'nomeArquivo',
+  displayedColumns: string[] = ['selecionado','tipoDoc', 'statusDocumento', 'nomeArquivo',
     'numeroAlvara', 'nomeEmpresa',
     'cnpjEmpresa', 'dataEmissao', 'dataVencimento', 'expira', 'observacao', 'pdf', 'edit', 'del'];
 
@@ -136,10 +136,6 @@ export class AlvaraListaFilterComponent implements OnInit, AfterViewInit {
       .subscribe({
         next: (resposta) => {
           this.listaAlvaras = resposta.content;
-
-console.log( this.listaAlvaras);
-
-
           this.ELEMENT_DATA = this.listaAlvaras;
           this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
           this.totalElementos = resposta.totalElements;
@@ -443,7 +439,7 @@ console.log( this.listaAlvaras);
 
   dialogExlusao(alvara: Alvara) {
     this.avisoDialogService.openConfirmationDialog("Confirma a Exclusão do Documento id '"
-      + alvara.id + "' ?")
+      + alvara.nomeArquivo + "' ?")
       .then(result => {
         if (result) {
           this.deletar(alvara.id);
